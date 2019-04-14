@@ -38,10 +38,10 @@ class App extends Component {
     }
 }
 
-const getCountries = ({countries, sort, keyword, count}) => {
-    countries = keyword && countries.filter(country => {
+const getCountries = ({countries, sort, search, count}) => {
+    countries = search.keyword && countries.filter(country => {
         return Object.keys(country).some(key => {
-            return country[key].includes(keyword);
+            return country[key].includes(search.keyword);
         });
     }) || countries;
 
@@ -59,7 +59,6 @@ const getCountries = ({countries, sort, keyword, count}) => {
 const mapStateToProps = state => ({
     countries: getCountries(state),
     sort: {kind: state.sort.kind, target: state.sort.target},
-    search: {keyword: state.search.keyword},
     count: state.count
 });
 
