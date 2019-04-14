@@ -7,18 +7,17 @@ import {SORT_TYPES} from "../_common/const";
 
 class App extends Component {
     componentDidMount() {
-        this.props.fetchCountries(this.props.count);
+        this.props.fetchCountries();
         window.addEventListener('scroll', this.handleScroll.bind(this));
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll',this.handleScroll.bind(this));
+        window.removeEventListener('scroll', this.handleScroll.bind(this));
     }
 
     handleScroll() {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             this.props.increaseCount(this.props.count + 50);
-            this.props.fetchCountries(this.props.count);
         }
     }
 
@@ -39,26 +38,26 @@ class App extends Component {
     }
 }
 
-const getCountries = (countries, sortKind, sortTarget, keyword) => {
+const getCountries = ({countries, sort, keyword, count}) => {
     countries = keyword && countries.filter(country => {
         return Object.keys(country).some(key => {
             return country[key].includes(keyword);
         });
     }) || countries;
 
-    let compareFunction = sortKind === SORT_TYPES.ASC
+    let compareFunction = sort.kind === SORT_TYPES.ASC
         && function (a, b) {
-            return a[sortTarget].localeCompare(b[sortTarget]);
+            return a[sort.target].localeCompare(b[sort.target]);
         }
         || function (a, b) {
-            return b[sortTarget].localeCompare(a[sortTarget]);
+            return b[sort.target].localeCompare(a[sort.target]);
         };
 
-    return countries.sort(compareFunction);
+    return countries.slice(0, count).sort(compareFunction);
 };
 
 const mapStateToProps = state => ({
-    countries: getCountries(state.countries, state.sort.kind, state.sort.target, state.search.keyword),
+    countries: getCountries(state),
     sort: {kind: state.sort.kind, target: state.sort.target},
     search: {keyword: state.search.keyword},
     count: state.count

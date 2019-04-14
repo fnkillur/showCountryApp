@@ -38,6 +38,6 @@ export const fetchCountriesFailed = error => ({
 
 export const increaseCount = count => ({
     type: types.INCREASE_COUNT,
-    count,
+    count
 });
 

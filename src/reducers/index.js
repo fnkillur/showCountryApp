@@ -5,6 +5,7 @@ import {
     REMOVE_COUNTRY,
     SORT_COUNTRIES,
     SEARCH_COUNTRY,
+    SHOW_MORE_COUNTRIES,
     INCREASE_COUNT
 } from '../actions/actionTypes';
 import {SORT_TARGETS, SORT_TYPES} from '../_common/const';
