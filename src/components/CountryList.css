@@ -1,0 +1,24 @@
+.column-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.column {
+    text-align: center;
+}
+
+.column-small {
+    width: 100px;
+}
+
+.column-middle {
+    width: 150px;
+}
+
+.column-large {
+    width: 350px;
+}
+
+.add-form {
+    margin-bottom: 10px;
+}

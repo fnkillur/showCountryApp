@@ -1,0 +1,7 @@
+.form {
+    display: flex;
+}
+
+.form-field {
+    width: 100px;
+}
