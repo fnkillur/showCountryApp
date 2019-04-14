@@ -5,7 +5,6 @@ import {
     REMOVE_COUNTRY,
     SORT_COUNTRIES,
     SEARCH_COUNTRY,
-    SHOW_MORE_COUNTRIES,
     INCREASE_COUNT
 } from '../actions/actionTypes';
 import {SORT_TARGETS, SORT_TYPES} from '../_common/const';
@@ -20,7 +19,7 @@ const countries = (state = [], action) => {
             console.log(action.error);
             return [];
         case ADD_COUNTRY:
-            return [...state, action.country];
+            return [action.country, ...state];
         case REMOVE_COUNTRY:
             return state.filter(country => country.code !== action.code);
         default:

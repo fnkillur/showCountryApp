@@ -4,10 +4,7 @@ import './AddForm.css';
 
 let AddForm = ({handleSubmit}) => {
     return (
-        <form onSubmit={() => {
-            handleSubmit();
-            alert('추가되었습니다.');
-        }} className='form'>
+        <form onSubmit={handleSubmit} className='form'>
             <div className='column column-small'>
                 <Field name='code' type='text' className='form-field'
                        placeholder='코드' component='input'/>
