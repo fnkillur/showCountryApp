@@ -4,7 +4,8 @@ import {
     ADD_COUNTRY,
     REMOVE_COUNTRY,
     SORT_COUNTRIES,
-    SEARCH_COUNTRY
+    SEARCH_COUNTRY,
+    INCREASE_COUNT
 } from '../actions/actionTypes';
 import {SORT_TARGETS, SORT_TYPES} from '../_common/const';
 import {combineReducers} from 'redux';
@@ -44,10 +45,20 @@ const search = (state = {keyword: ''}, action) => {
     }
 };
 
+const count = (state = 50, action) => {
+    switch (action.type) {
+        case INCREASE_COUNT:
+            return action.count;
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
     countries,
     sort,
     search,
+    count,
     form: formReducer,
 });
 

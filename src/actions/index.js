@@ -21,8 +21,9 @@ export const sortCountries = (sortKind, sortTarget) => ({
     sortTarget
 });
 
-export const fetchCountries = () => ({
-    type: types.FETCH_COUNTRIES
+export const fetchCountries = count => ({
+    type: types.FETCH_COUNTRIES,
+    count
 });
 
 export const fetchCountriesSucceeded = countries => ({
@@ -34,3 +35,9 @@ export const fetchCountriesFailed = error => ({
     type: types.FETCH_COUNTRIES_FAILED,
     error
 });
+
+export const increaseCount = count => ({
+    type: types.INCREASE_COUNT,
+    count,
+});
+

@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchCountries, removeCountry, sortCountries, addCountry, searchCountry} from "../actions";
+import {fetchCountries, removeCountry, sortCountries, addCountry, searchCountry, increaseCount} from "../actions";
 import Header from '../components/Header';
 import CountryList from '../components/CountryList';
 import {SORT_TYPES} from "../_common/const";
 
 class App extends Component {
     componentDidMount() {
-        this.props.fetchCountries();
-        window.addEventListener('scroll', this.handleScroll);
+        this.props.fetchCountries(this.props.count);
+        window.addEventListener('scroll', this.handleScroll.bind(this));
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('scroll',this.handleScroll.bind(this));
     }
 
     handleScroll() {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            console.log('bottom');
+            this.props.increaseCount(this.props.count + 50);
+            this.props.fetchCountries(this.props.count);
         }
     }
 
@@ -59,15 +60,17 @@ const getCountries = (countries, sortKind, sortTarget, keyword) => {
 const mapStateToProps = state => ({
     countries: getCountries(state.countries, state.sort.kind, state.sort.target, state.search.keyword),
     sort: {kind: state.sort.kind, target: state.sort.target},
-    search: {keyword: state.search.keyword}
+    search: {keyword: state.search.keyword},
+    count: state.count
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchCountries: () => dispatch(fetchCountries()),
+    fetchCountries: count => dispatch(fetchCountries(count)),
     onDeleteClick: code => dispatch(removeCountry(code)),
     onSortClick: (sortKind, target) => dispatch(sortCountries(sortKind, target)),
     onAddSubmit: country => dispatch(addCountry(country)),
-    onSearchSubmit: search => dispatch(searchCountry(search))
+    onSearchSubmit: search => dispatch(searchCountry(search)),
+    increaseCount: count => dispatch(increaseCount(count))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

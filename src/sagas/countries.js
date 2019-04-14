@@ -3,9 +3,9 @@ import axios from "axios";
 import {fetchCountriesSucceeded, fetchCountriesFailed} from '../actions'
 import {FETCH_COUNTRIES} from '../actions/actionTypes';
 
-function* fetchCountries() {
+function* fetchCountries(action) {
     try {
-        const countries = yield axios.get('http://localhost:3000/api/countries');
+        const countries = yield axios.get(`http://localhost:3000/api/countries?count=${action.count}`);
         yield put(fetchCountriesSucceeded(countries));
     } catch (error) {
         yield put(fetchCountriesFailed(error));
